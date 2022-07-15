@@ -8,10 +8,11 @@ const PORT = 4000;
 
 const app = express();
 const logger = morgan("dev"); 
+
+app.set("view engine", "pug");
+app.set("views", process.cwd() + "/src/views");
+
 app.use(logger);
-// morgan 함수는 middleware를 return 해준다.
-
-
 app.use("/", globalRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);

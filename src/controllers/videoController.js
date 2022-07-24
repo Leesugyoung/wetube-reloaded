@@ -29,19 +29,20 @@ export const getUpload = (req, res) => {
 export const postUpload = async (req, res) => {
     const { title, description, hashtags } = req.body;
     // db에 저장하는 방식 .create() or .save()
+    try {
     await Video.create({
         // videoschema : req.body ,
         title:title,
         description:description,
-        createdAt: Date.now(),
-        hashtags:hashtags.split(",").map(word =>`#${word}`),
-        meta:{
-            views:0,
-            rating:0,
-        }
-        
+        hashtags:hashtags.split(",").map((word) =>`#${word}`),
     });
-    return res.redirect("/");
+        return res.redirect("/");
+    } catch(error){
+        return res.render("upload", { 
+            pageTitle: "Upload Video", 
+            errorMessage : error._message,
+        });
+    }
 };
 
 

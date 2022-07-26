@@ -27,19 +27,19 @@ export const getEdit = async (req, res) => {
 export const postEdit = async (req, res) => {
     const { id } = req.params;
     const { title, description, hashtags } = req.body;
-    const video = await Video.findById(id);
+    const video = await Video.exists({_id:id});
 
     if (!video) {
         return res.render("404", {pageTitle : "Video not found."});
     }
-    // video.title = req.body;
-    video.title = title;
-    // video.description = req.body;
-    video.description = description;
-    video.hashtags = hashtags
-    .split(",")
-    .map((word) => word.startsWith("#") ? word : `#${word}`);
-    await video.save();
+    await Video.findByIdAndUpdate(id, {
+        // video.title = req.body;
+        title, 
+        description, 
+        hashtags:hashtags.split(",")
+        .map((word) => word.startsWith("#") ? word : `#${word}`)
+    });
+
     return res.redirect(`/videos/${id}`);
 };
 
@@ -53,11 +53,9 @@ export const postUpload = async (req, res) => {
     try {
     await Video.create({
         // videoschema : req.body ,
-        title:title,
-        description:description,
-        hashtags:hashtags
-        .split(",")
-        .map((word) => word.startsWith("#") ? word : `#${word}`),
+        title,
+        description,
+        hashtags,
     });
         return res.redirect("/");
     } catch(error){

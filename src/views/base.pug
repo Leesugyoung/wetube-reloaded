@@ -10,7 +10,12 @@ html(lang="ko")
                 ul 
                     li
                         a(href="/") Home
-                    //- if !req.session.loggedIn
+                    if loggedIn 
+                        li
+                            a(href="/logout") Log Out
+                        li 
+                            a(href="/my-profile") #{loggedInUser.name}의 Profile
+                    else
                         li
                             a(href="/join") Join
                         li

@@ -1,18 +1,19 @@
 import User from "../models/User";
 import bcrypt from "bcrypt"; 
 import fetch from "node-fetch";
+import session from "express-session";
 
 // --- getJoin
-export const getJoin = (req, res) => res.render("join", { pageTitle : "Join" });
+export const getJoin = (req, res) => res.render("user/join", { pageTitle : "Join" });
 
 
 // --- postJoin
-export const postJoin = async (req, res) => {
+export const postJoin = async(req, res) => {
     const { name, username, email, password, password2, location } = req.body;
     const pageTitle = "Join";
 
     if (password !== password2) {
-        return res.status(400).render("join", {
+        return res.status(400).render("user/join", {
             pageTitle,
             errorMessage:"Password confirmation does not match!",
         })
@@ -23,7 +24,7 @@ export const postJoin = async (req, res) => {
             {username},{email}]});
 
     if (exists) {
-        return res.status(400).render("join", { 
+        return res.status(400).render("user/join", { 
             pageTitle,
             errorMessage:"This username/email is already taken."
         });
@@ -39,9 +40,9 @@ export const postJoin = async (req, res) => {
         });
         return res.redirect("/login");
     } catch (error) {
-        return res.status(400).render("join", {
-            pageTitle : "Upload Video",
-            errorMessage : error._message,
+        return res.status(400).render("user/join", {
+            pageTitle,
+            errorMessage : error.message,
         });
     };
 };
@@ -49,7 +50,7 @@ export const postJoin = async (req, res) => {
 
 // --- getLogin 
 export const getLogin = (req, res) => {
-    res.render("login", {pageTitle: "Login"});
+    res.render("user/login", {pageTitle: "Login"});
 }
 
 
@@ -60,7 +61,7 @@ export const postLogin = async (req, res) => {
     const user = await User.findOne({ username, socialOnly:false });
 
     if (!user) {
-        return res.status(400).render("login", {
+        return res.status(400).render("user/login", {
             pageTitle, 
             errorMessage:"An account with this username does not exists."
         });
@@ -68,7 +69,7 @@ export const postLogin = async (req, res) => {
     const ok = await bcrypt.compare(password, user.password);
     
     if (!ok) {
-        return res.status(400).render("login", {
+        return res.status(400).render("user/login", {
             pageTitle, 
             errorMessage: "Wrong password",
         });
@@ -174,21 +175,41 @@ export const logout = (req, res) => {
 
 // --- getEdit
 export const getEdit = (req, res) => {
-    return res.render("edit-profile", {pageTitle : "Edit Profile"});
+    return res.render("user/edit-profile", {pageTitle : "Edit Profile"});
 };
 
 // --- postEdit
 export const postEdit = async (req,res) => {
     const {
         session:{
-            user:{ _id }},
+            user: { _id },
+        },
             body:{ name, email, username, location }
     } = req;
 
+    // code challenge!
+    // db에서 기존 data 와 겹치는거 없는지 확인
+    const existUsername = await User.exists({username});
+    const existEmail = await User.exists({email});
+    const pageTitle = "Edit Profile";
 
+    if (username !== req.session.user.username) {
+        if (existUsername) { 
+            return res.status(400).render("user/edit-profile", { 
+                pageTitle, 
+                errorMessage: "Username is already taken." });
+        };
+    };
 
-    const updatedUser = await User.findByIdAndUpdate(
-        _id,
+    if (email !== req.session.user.email) {
+        if (existEmail) {
+            return res.status(400).render("user/edit-profile", { 
+                pageTitle, 
+                errorMessage: "Email is already taken." });
+        };
+    };
+
+    const updatedUser = await User.findByIdAndUpdate(_id,
         {
             name,
             email,
@@ -197,9 +218,56 @@ export const postEdit = async (req,res) => {
         },
         {new:true}
     )
-    req.session.user = updatedUser;
-    return res.redirect("/users/edit");
 
+    req.session.user = updatedUser;
+    return res.redirect("user/edit");
+};
+
+// --- getChangePasswor
+export const getChangePassword = (req,res) => {
+    if (req.session.user.socialOnly === true) {
+        return res.redirect("/");
+    }
+    return res.render("user/change-password", {pageTitle : "change Password"});
+};
+
+// --- postChangePasswor
+export const postChangePassword = async (req,res) => {
+    const {
+        session:{
+            user: { _id },
+        },
+            body:{ oldPassword, newPassword, newPasswordConfirmaiton }
+    } = req;
+    // session에 로그인되어있는 유저 찾기
+    const user = await User.findById(_id);
+
+    // 기존 비밀번호가 정확한지 체크
+    const ok = await bcrypt.compare(oldPassword, user.password);
+    // → 사용자가 form 으로 보낸 비밀번호와 db에 있는 user의 가장 최근의 비밀번호를 비교 
+
+    if(!ok) {
+        return res.status(400).render("user/change-password", {
+            pageTitle : "change Password",
+            errorMessage : "The current password is incorrect."
+        });
+    };
+
+    if(newPassword !== newPasswordConfirmaiton) {
+        return res.status(400).render("user/change-password", {
+            pageTitle : "change Password",
+            errorMessage : "The password does not match Confirmaiton."
+        });
+    };
+
+    user.password = newPassword;
+    // userSchema.pre("save") 발동! 비밀번호 해시 ok!
+    await user.save();
+
+    // return res.redirect("/users/logout");
+    // → 해킹의 위험을 방지하기위해 아래와 같이 좀 더 확실하게 작성함
+    req.session.destroy();
+    return res.redirect("/login");
 };
 
 export const see = (req, res) => res.send("See user");

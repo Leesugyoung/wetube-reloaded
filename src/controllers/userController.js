@@ -12,7 +12,7 @@ export const postJoin = async (req, res) => {
     const pageTitle = "Join";
 
     if (password !== password2) {
-        return res.status(400).render("Join", {
+        return res.status(400).render("join", {
             pageTitle,
             errorMessage:"Password confirmation does not match!",
         })
@@ -39,7 +39,7 @@ export const postJoin = async (req, res) => {
         });
         return res.redirect("/login");
     } catch (error) {
-        return res.status(400).render("/join", {
+        return res.status(400).render("join", {
             pageTitle : "Upload Video",
             errorMessage : error._message,
         });
@@ -172,6 +172,34 @@ export const logout = (req, res) => {
 };
 
 
-export const edit = (req, res) => res.send("Edit User");
+// --- getEdit
+export const getEdit = (req, res) => {
+    return res.render("edit-profile", {pageTitle : "Edit Profile"});
+};
+
+// --- postEdit
+export const postEdit = async (req,res) => {
+    const {
+        session:{
+            user:{ _id }},
+            body:{ name, email, username, location }
+    } = req;
+
+
+
+    const updatedUser = await User.findByIdAndUpdate(
+        _id,
+        {
+            name,
+            email,
+            username,
+            location
+        },
+        {new:true}
+    )
+    req.session.user = updatedUser;
+    return res.redirect("/users/edit");
+
+};
 
 export const see = (req, res) => res.send("See user");

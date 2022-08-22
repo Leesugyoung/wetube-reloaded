@@ -21,8 +21,8 @@ app.use(
     saveUninitialized: false,
     store : MongoStore.create({ mongoUrl: process.env.DB_URL}),
 }));
-
 app.use(localsMiddleware);
+app.use("/uploads", express.static("uploads"));
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);

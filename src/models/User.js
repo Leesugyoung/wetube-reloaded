@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     password : { type:String },
     name : { type:String, required:true },
     location : { type:String },
+    videos : [ { type: mongoose.Schema.Types.ObjectId, ref:"Video" } ],
 });
 
 // password 암호화(hashing)

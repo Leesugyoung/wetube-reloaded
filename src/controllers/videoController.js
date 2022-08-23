@@ -11,8 +11,6 @@ export const watch = async (req, res) => {
     const { id } = req.params;
     // ㄴ> == const id = req.params.id;
     const video = await Video.findById(id).populate("owner");
-
-
     if (!video) {
         return res.render("404", {pageTitle : "Video not found."});
     }
@@ -22,9 +20,14 @@ export const watch = async (req, res) => {
 // --- getEdit
 export const getEdit = async (req, res) => {
     const { id } = req.params;
+    const { user: { _id }} = req.session;
     const video = await Video.findById(id);
     if (!video) {
         return res.status(404).render("404", {pageTitle : "Video not found."});
+    }
+    // video.owner 가 object type 이므로 string으로 변환 
+    if (String(video.owner) !== String(_id)) {
+        return res.status(403).redirect("/");
     }
     return res.render("video/edit", {pageTitle: `Edit: ${video.title}`, video});
 };
@@ -33,10 +36,13 @@ export const getEdit = async (req, res) => {
 export const postEdit = async (req, res) => {
     const { id } = req.params;
     const { title, description, hashtags } = req.body;
+    const { user: { _id }} = req.session;
     const video = await Video.exists({_id:id});
-
     if (!video) {
         return res.status(404).render("404", {pageTitle : "Video not found."});
+    }
+    if (String(video.owner) !== String(_id)) {
+        return res.status(403).redirect("/");
     }
     await Video.findByIdAndUpdate(id, {
         // video.title = req.body;
@@ -44,7 +50,6 @@ export const postEdit = async (req, res) => {
         description, 
         hashtags: Video.formatHashtags(hashtags),
     });
-
     return res.redirect(`/videos/${id}`);
 };
 
@@ -83,8 +88,15 @@ export const postUpload = async (req, res) => {
 // --- deleteVideo
 export const deleteVideo = async (req,res) => {
     const { id } = req.params;
+    const { user:{ _id } } = req.session;
+    const video = await Video.findById(id);
+    if (!video) {
+        return res.status(404).render("404", { pageTitle: "Video not found."});
+    }
+    if (String(video.owner) !== String(_id)) {
+        return res.status(403).redirect("/");
+    }
     await Video.findByIdAndDelete(id);
-
     return res.redirect("/");
 };
 

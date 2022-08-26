@@ -1,7 +1,7 @@
 doctype html
 html(lang="ko")
     head 
-        title #{pageTitle} | Wetube
+        title #{pageTitle} | #{siteName}
         link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css")
         link(rel="stylesheet" href="/static/css/styles.css")
     body 
@@ -9,7 +9,6 @@ html(lang="ko")
         main
             block content 
         include partials/footer.pug
-
-    script(src="/static/js/main.js")
+    block scripts
     
     

@@ -112,7 +112,7 @@ export const search = async (req,res) => {
                 // 대소문자 구분 없이 
                 $regex: new RegExp(keyword, "i")
             },
-        });
+        }).populate("owner");
     }
     return res.render("video/search", {pageTitle:"Search", videos});
 };

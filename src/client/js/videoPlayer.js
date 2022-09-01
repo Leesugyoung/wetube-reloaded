@@ -26,7 +26,7 @@ const handlePlayClick = (event) => {
     } else {
         video.pause();
     }
-    playBtnIcon.classList = video.paused ? "fas- fa-play" : "fas fa-pause";
+    playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
 };
 
 const handleMuteClick = (event) => {
@@ -143,6 +143,13 @@ const handleMouseLeave = () => {
     controlsTimeout = setTimeout(hideControls, 3000);
 };
 
+// code challenge
+const playWithSpacebar = (event) => {
+    if (event.code === 'Space') {
+        handlePlayClick();
+    }
+}
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
@@ -153,3 +160,6 @@ videoContainer.addEventListener("mouseleave", handleMouseLeave);
 timeline.addEventListener("input", handleTimelineChange);
 timeline.addEventListener("change", handleTimelineSet);
 fullScreenBtn.addEventListener("click", handleFullscreen);
+// code challenge
+document.addEventListener("keyup", playWithSpacebar);
+video.addEventListener("click", handlePlayClick);

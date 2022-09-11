@@ -70,6 +70,8 @@ const formatTime = (seconds) => {
 
 const handleLoadedMetadata = () => {
     totalTime.innerText = formatTime(Math.floor(video.duration));
+    timeline.max = Math.floor(video.duration);
+    
     const fullscreen = document.fullscreenElement;
 
     if (fullscreen) {

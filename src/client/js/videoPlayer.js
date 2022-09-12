@@ -71,16 +71,6 @@ const formatTime = (seconds) => {
 const handleLoadedMetadata = () => {
     totalTime.innerText = formatTime(Math.floor(video.duration));
     timeline.max = Math.floor(video.duration);
-    
-    const fullscreen = document.fullscreenElement;
-
-    if (fullscreen) {
-        document.exitFullscreen();
-        fullScreenIcon.classList = "fas fa-expand";
-    } else {
-        videoContainer.requestFullscreen();
-        fullScreenIcon.classList = "fas fa-compress";
-    }
   };
 
 /** 비디오 시간 감지 function */
@@ -150,13 +140,22 @@ const playWithSpacebar = (event) => {
     if (event.code === 'Space') {
         handlePlayClick();
     }
-}
+};
+
+/** 조회수 증가 event function */
+const handleEnded = () => {
+    const { id } = videoContainer.dataset;
+    fetch(`/api/videos/${id}/view`, {
+        method: "POST",
+    });
+};
 
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadeddata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
+video.addEventListener("ended", handleEnded);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 timeline.addEventListener("input", handleTimelineChange);

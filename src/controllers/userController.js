@@ -187,13 +187,11 @@ export const postEdit = async (req,res) => {
             body:{ name, email, username, location },
         file,
     } = req;
-
     // code challenge!
     // db에서 기존 data 와 겹치는거 없는지 확인
     const existUsername = await User.exists({username});
     const existEmail = await User.exists({email});
     const pageTitle = "Edit Profile";
-
     if (username !== req.session.user.username) {
         if (existUsername) { 
             return res.status(400).render("user/edit-profile", { 
@@ -201,7 +199,6 @@ export const postEdit = async (req,res) => {
                 errorMessage: "Username is already taken." });
         };
     };
-
     if (email !== req.session.user.email) {
         if (existEmail) {
             return res.status(400).render("user/edit-profile", { 
@@ -209,7 +206,6 @@ export const postEdit = async (req,res) => {
                 errorMessage: "Email is already taken." });
         };
     };
-
     const updatedUser = await User.findByIdAndUpdate(
         _id,
         {
@@ -223,7 +219,6 @@ export const postEdit = async (req,res) => {
         },
         {new:true}
     )
-
     req.session.user = updatedUser;
     return res.redirect("/users/edit");
 };

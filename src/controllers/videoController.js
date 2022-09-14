@@ -63,7 +63,7 @@ export const getUpload = (req, res) => {
 // --- postUpload
 export const postUpload = async (req, res) => {
     const { user:{ _id } } = req.session;
-    const { path: fileUrl } = req.file;
+    const { video, thumb } = req.files;
     const { title, description, hashtags } = req.body;
     // db에 저장하는 방식 .create() or .save()
     try {
@@ -71,7 +71,8 @@ export const postUpload = async (req, res) => {
             // videoschema: req.body ,
             title,
             description,
-            fileUrl, 
+            fileUrl : video[0].path, 
+            thumbUrl : thumb[0].path.replace(/[\\]/g, "/"),
             owner:_id,
             hashtags: Video.formatHashtags(hashtags),
         });

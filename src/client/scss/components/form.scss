@@ -7,7 +7,8 @@ form {
     border: 1px solid rgba($color: #fff, $alpha: 0.2);
 }
 
-input:not(input[type="range"],input[type="submit"]){
+input:not(input[type="range"]),
+input[type="submit"]{
     all:unset;
     padding: 15px 20px;
     border-radius: 4px;
@@ -33,14 +34,27 @@ input[type="submit"]{
     text-align: center;
     cursor: pointer;
     display: block;
+    &:hover {
+        background-color: white;
+        color: rgba($color: $red, $alpha: 1);
+    }
 }
 
 .social__btn{
     border-radius: 4px;
     padding: 12px 20px;
-    background-color: white;
-    text-align: center;
     cursor: pointer;
     display: block;
+    background-color: white !important;
+    color: rgba($color: $red, $alpha: 1) !important;
+    text-align: center !important;
+    border: none;
+    &:focus {
+      outline: none;
+    }
+    &:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
 }
 

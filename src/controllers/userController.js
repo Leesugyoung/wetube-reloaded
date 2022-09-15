@@ -169,6 +169,7 @@ export const finishGithubLogin = async (req, res) => {
 // --- Logout
 export const logout = (req, res) => {
     req.session.destroy();
+    req.flash("info","Bye Bye");
     return res.redirect("/");
 };
 
@@ -226,6 +227,7 @@ export const postEdit = async (req,res) => {
 // --- getChangePasswor
 export const getChangePassword = (req,res) => {
     if (req.session.user.socialOnly === true) {
+        req.flash("error","Can't change password. Because You logged in with Github.");
         return res.redirect("/");
     }
     return res.render("user/change-password", {pageTitle : "change Password"});
@@ -263,7 +265,7 @@ export const postChangePassword = async (req,res) => {
     user.password = newPassword;
     // userSchema.pre("save") 발동! 비밀번호 해시 ok!
     await user.save();
-
+    req.flash("info","Password updated");
     // return res.redirect("/users/logout");
     // → 해킹의 위험을 방지하기위해 아래와 같이 좀 더 확실하게 작성함
     req.session.destroy();

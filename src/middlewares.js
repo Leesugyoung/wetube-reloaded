@@ -9,10 +9,11 @@ export const localsMiddleware = (req, res, next) => {
 
 /** use "/logout", "/edit", "/edit", "/delete", "/upload" */
 export const protectorMiddleware = (req, res, next) => {
-    // user is loggedIn continue request
+    // user is "loggedIn" continue request
     if(req.session.loggedIn) {
         return next();
     } else {
+        req.flash("error","Not authorized. Log in first!");
         return res.redirect("/login");
     }
 
@@ -20,10 +21,11 @@ export const protectorMiddleware = (req, res, next) => {
 
 /** use "/github/start", "/github/finish", "/login" , "/join" */
 export const publicOnlyMiddleware = (req, res, next) => {
-    // user is not loggedIn continue request
+    // user is "Not loggedIn" continue request
     if(!req.session.loggedIn) {
         return next();
     } else {
+        req.flash("error","Not authorized");
         return res.redirect("/");
     }
 };

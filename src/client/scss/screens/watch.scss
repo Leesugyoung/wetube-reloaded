@@ -2,38 +2,142 @@
     margin-top: 20px;
     display: flex;
     flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
     .video__title {
-      font-size: 26px;
+      font-size: 25px;
       margin-bottom: 5px;
+      font-weight: 600;
     }
     .video__createdAt {
       font-size: 12px;
     }
-    .video__owner {
-      margin-bottom: 5px;
-      font-size: 14px;
-      a {
-        color: cornflowerblue;
-        text-decoration: underline;
+      .video-mixin-views,
+      .video__createdAt{
+        font-size: 13px;
+        color: rgba($color: #FFFFFF, $alpha: 0.5);
+        font-weight: 300;
       }
+      .video__ViewCreate{
+        margin: 5px 0;
+      }
+    .video__icons{
+      float: right;
+      margin-right: 10px;
+    }
+    .video__icons i{
+      margin: 0 10px;
+      font-size: 15px;
+    }
+    .video__icons span{
+      font-weight: 500;
+    }
+    .video__hashtags{
+      font-size: 12px;
+      color: #3EA6FF;
+      margin-bottom: 5px;
     }
 }
 
+// 업로더 사진 및 이름
+.video__OwnerDsecContainer{
+  .video__avatar{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    float: left;
+  }
+  .video__subscribe{
+    font-size: 12px;
+    color: rgba($color: #FFFFFF, $alpha: 0.5);
+    font-weight: 500;
+  }
+  .video__owner {
+    margin: 10px;
+    margin-bottom: 5px;
+    a {
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 600;
+    }
+  }
+}
+
+// 비디오 설명
+.video__description{
+  font-size: 14px;
+  margin-left: 60px;
+}
+
+
+// 구분선
+.line{
+  width: 100%;
+  margin: 15px 0;
+  border-color: rgba($color: #FFFFFF, $alpha: 0.2);
+  border-width: 0.5;
+}
+
+// 댓글 입력창
+
+.video__add-comments{
+  margin-left: 10px;
+  .comments__avatar{
+    // 댓글 입력자
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: 5px;
+  }
+  .video__comment-form{
+    background-color: transparent;
+    border: 0;
+    button{
+      border-radius: 5px;
+      margin-left: 20px;
+      background-color: aliceblue;
+      margin-bottom: 20px;
+    }
+  }
+  .video__comment-form__text{
+    width: 600px;
+    height: 25px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid rgba($color: #FFFFFF, $alpha: 0.5);
+    color: #FFFFFF;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+// 댓글 등록란
 .video__comments {
+  margin-left: 10px;
+  margin-right: 10px;
   display: flex;
   flex-direction: column;
-  max-width: 320px;
   width: 100%;
   // margin: 0 auto;
   margin-top: 20px;
   .video__comment {
     font-size: 14px;
     padding: 5px;
-    color: FFFFFF;
+    color: #FFFFFF;
     margin-bottom: 10px;
+    i.fas.fa-xmark{
+      margin-left: 20px;
+    }
   }
 }
 
 .video__comment__deleteBtn:hover {
   cursor: pointer;
 }
+
+
+

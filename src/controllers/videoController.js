@@ -1,6 +1,7 @@
 import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
+import { compareSync } from "bcrypt";
 
 export const home = async (req, res) => {
     const videos = await Video.find({})
@@ -12,6 +13,7 @@ export const home = async (req, res) => {
 // --- watch
 export const watch = async (req, res) => {
     const { id } = req.params;
+    const { description, hashtags } = req.body;
     // ㄴ> == const id = req.params.id;
     const video = await Video.findById(id)
         .populate("owner")
@@ -19,7 +21,12 @@ export const watch = async (req, res) => {
     if (!video) {
         return res.render("404", {pageTitle : "Video not found."});
     }
-    return res.render("video/watch" , {pageTitle : video.title, video} );
+    res.render("video/watch" , {
+        pageTitle : video.title, 
+        video,
+        description,
+        hashtags,
+    },);
 };
 
 // --- getEdit
@@ -152,6 +159,7 @@ export const creatComment = async (req, res)=> {
         owner: user._id,
         video: id,
     });
+    console.log("owner 정보 " + comment.owner);
     video.comments.push(comment._id);
     video.save();
     return res.status(201).json({ newCommentId: comment._id });

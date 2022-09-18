@@ -20,27 +20,51 @@ block content
                 span#fullScreen
                     i.fas.fa-expand
     div.video__data
+        p.video__hashtags=video.hashtags
         p.video__title=video.title
-        small.video__owner Uploaded by 
-            a(href=`/users/${video.owner._id}`)=video.owner.name
-        small.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
-        br
-        if String(video.owner._id) === String(loggedInUser._id)
-            a(href=`${video.id}/edit`) Edit Video &rarr;
-            a(href=`${video.id}/delete`) Delete Video &rarr;
+        p.video__ViewCreate
+            span.video-mixin-views 조회수 #{video.meta.views}회  •   
+            span.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
+            span.video__icons
+                i.fas.fa-thumbs-up  
+                    span 좋아요
+                i.fas.fa-thumbs-down  
+                    span 싫어요
+                i.fas.fa-share  
+                    span 공유
+                i.fas.fa-long-arrow-alt-down  
+                    span 오프라인 저장
+                if String(video.owner._id) === String(loggedInUser._id)
+                    i.fas.fa-pen
+                        a(href=`${video.id}/edit`)
+                        span   수정
+                    i.fas.fa-xmark
+                        a(href=`${video.id}/delete`) 
+                        span 삭제
+        hr.line
+        div.video__OwnerDsecContainer
+            img(src="/" + video.owner.avatarUrl).video__avatar
+            div
+                p.video__owner
+                    a(href=`/users/${video.owner._id}`)=video.owner.name
+                small.video__subscribe 구독자 1명
+        p.video__description=video.description
+        hr.line
     if loggedIn
         div.video__add-comments
             form.video__comment-form#commentForm
-                textarea(cols="30", rows="10", placeholder="Write a nice commment.")
-                button Add Comment
+                img(src="/" + loggedInUser.avatarUrl).comments__avatar
+                textarea.video__comment-form__text(cols="30", rows="10", placeholder="댓글 입력..")
+                button.video__comment-form__btn 댓글
     div.video__comments
-        ul
+        ul.video__commentsBox
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id) 
-                    i.fas.fa-comment
+                    //- p=comment.name
                     span  #{comment.text}
                     if String(comment.owner._id) === String(loggedInUser._id)
-                        span.video__comment__deleteBtn#deleteBtn  ❌
+                        span.video__comment__deleteBtn#deleteBtn
+                            i.fas.fa-xmark
 
 block scripts
     script(src="/static/js/videoPlayer.js")

@@ -12,13 +12,30 @@ const addComment = (text, id) => {
     newComment.appendChild(span);
     videoComments.prepend(newComment);
 
-    // 코드챌린지(댓글삭제)
+    // 코드챌린지
+    // 댓글삭제
     const deleteSpan = document.createElement("span");
     deleteSpan.innerText = "❌";
     deleteSpan.id = "deleteBtn";
     deleteSpan.className = "video__comment__deleteBtn";
     deleteSpan.addEventListener("click", handleDelete);
     newComment.appendChild(deleteSpan);
+
+    // // 작성자
+    const ownerName = document.createElement("span");
+    ownerName.className = "comment__owername";
+    ownerName.innerHTML = comment.ownername;
+    newComment.appendChild(ownerName);
+
+    // // 작성 시간
+    // const commnetCreate = document.createElement("span");
+    // commnetCreate.className = "comment__createdat";
+    // newComment.appendChild(commnetCreate);
+
+    // // 작성자 아바타
+    // const owenrAvatar = document.createElement("span");
+    // owenrAvatar.className = "comments__avatar";
+    // newComment.appendChild(owenrAvatar);
 };
 
 const handleSubmit = async (event) => {
@@ -38,8 +55,8 @@ const handleSubmit = async (event) => {
     });
     if (response.status === 201) {
         textarea.value = "";
-        const { name, createdAt, newCommentId } = await response.json();
-        addComment(text, newCommentId, name, createdAt);
+        const { newCommentId } = await response.json();
+        addComment(text, newCommentId);
     };
 };
 

@@ -2,6 +2,7 @@ import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
 import { compareSync } from "bcrypt";
+import { urlencoded } from "express";
 
 export const home = async (req, res) => {
     const videos = await Video.find({})
@@ -13,7 +14,7 @@ export const home = async (req, res) => {
 // --- watch
 export const watch = async (req, res) => {
     const { id } = req.params;
-    const { description, hashtags } = req.body;
+    const { description, hashtags} = req.body;
     // ㄴ> == const id = req.params.id;
     const video = await Video.findById(id)
         .populate("owner")
@@ -137,7 +138,7 @@ export const registerView = async (req, res) => {
 
     if(!video){
         return res.sendStatus(404);
-    }
+    } 
     video.meta.views = video.meta.views + 1;
     await video.save();
     return res.sendStatus(200);
@@ -158,8 +159,9 @@ export const creatComment = async (req, res)=> {
         text:text,
         owner: user._id,
         video: id,
+        ownername : user.name,
+        avatarUrl: user.avatarUrl,
     });
-    console.log("owner 정보 " + comment.owner);
     video.comments.push(comment._id);
     video.save();
     return res.status(201).json({ newCommentId: comment._id });

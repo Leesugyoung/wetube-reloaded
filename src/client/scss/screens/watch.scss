@@ -81,27 +81,22 @@
   border-width: 0.5;
 }
 
-// 댓글 입력창
+// 댓글 아바타
+.comments__avatar{
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-top: 5px;
+}
 
+// 댓글 입력창
 .video__add-comments{
   margin-left: 10px;
-  .comments__avatar{
-    // 댓글 입력자
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    margin-right: 10px;
-    margin-top: 5px;
-  }
   .video__comment-form{
     background-color: transparent;
     border: 0;
-    button{
-      border-radius: 5px;
-      margin-left: 20px;
-      background-color: aliceblue;
-      margin-bottom: 20px;
-    }
+    padding-bottom: 20px;
   }
   .video__comment-form__text{
     width: 600px;
@@ -115,6 +110,20 @@
     font-weight: 500;
   }
 }
+
+// 댓글 버튼
+button{
+  appearance: none;
+  border-radius: 4px;
+  border: none;
+  margin-left: 20px;
+  font-size: 16px;
+  background-color: rgb(89, 178, 255);
+  padding: 10px 20px;
+  color: #030303;
+  cursor: pointer;
+}
+
 // 댓글 등록란
 .video__comments {
   margin-left: 10px;
@@ -135,9 +144,11 @@
   }
 }
 
-.video__comment__deleteBtn:hover {
-  cursor: pointer;
-}
-
+.video__comment__deleteBtn {
+  margin-left: 10px;
+  &:hover {
+    cursor: pointer;
+  }
+}  
 
 

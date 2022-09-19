@@ -60,11 +60,13 @@ block content
         ul.video__commentsBox
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id) 
-                    //- p=comment.name
+                    span.video_commentsavatar
+                        img(src="/" + comment.avatarUrl).comments__avatar
+                    span=comment.ownername
+                    span=comment.createdAt.toLocaleDateString("ko-kr", {year: 'numeric', month: 'long', day: 'numeric'})
                     span  #{comment.text}
                     if String(comment.owner._id) === String(loggedInUser._id)
-                        span.video__comment__deleteBtn#deleteBtn
-                            i.fas.fa-xmark
+                        span.video__comment__deleteBtn#deleteBtn ❌
 
 block scripts
     script(src="/static/js/videoPlayer.js")

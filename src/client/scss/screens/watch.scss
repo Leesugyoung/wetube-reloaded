@@ -112,7 +112,7 @@
 }
 
 // 댓글 버튼
-button{
+.video__comment-form__btn{
   appearance: none;
   border-radius: 4px;
   border: none;
@@ -122,26 +122,31 @@ button{
   padding: 10px 20px;
   color: #030303;
   cursor: pointer;
+  
 }
 
 // 댓글 등록란
 .video__comments {
-  margin-left: 10px;
-  margin-right: 10px;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  // margin: 0 auto;
-  margin-top: 20px;
-  .video__comment {
-    font-size: 14px;
-    padding: 5px;
-    color: #FFFFFF;
-    margin-bottom: 10px;
-    i.fas.fa-xmark{
-      margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    // margin: 0 auto;
+    margin-top: 20px;
+
+    .video__comment {
+      display: grid;
+      overflow: hidden;
+      font-size: 14px;
+      padding: 5px;
+      color: #FFFFFF;
+      margin: 10px 0;
+      i.fas.fa-xmark{
+        margin-left: 20px;
+      }
+      
     }
-  }
 }
 
 .video__comment__deleteBtn {

@@ -2,40 +2,44 @@ const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 let deleteBtns = document.querySelectorAll("#deleteBtn");
 
-const addComment = (text, id) => {
-    const videoComments = document.querySelector(".video__comments ul");
-    const newComment = document.createElement("li");
-    newComment.dataset.id = id;
-    newComment.className = "video__comment";
-    const span = document.createElement("span");
-    span.innerText = ` ${text}`;
-    newComment.appendChild(span);
-    videoComments.prepend(newComment);
+const addComment = (text, id, comment) => {
+      const videoComments = document.querySelector(".video__comments ul");
+      const newComment = document.createElement("li");
+      newComment.dataset.id = id;
+      newComment.className = "video__comment";
+      const span = document.createElement("span");
+      span.innerText = ` ${text}`;
+      
+      // 작성자 아바타
+      const owenrAvatar = document.createElement("img");
+      owenrAvatar.setAttribute('src', "/" + comment.avatarUrl);
+      owenrAvatar.className = "comments__avatar";
 
-    // 코드챌린지
-    // 댓글삭제
-    const deleteSpan = document.createElement("span");
-    deleteSpan.innerText = "❌";
-    deleteSpan.id = "deleteBtn";
-    deleteSpan.className = "video__comment__deleteBtn";
-    deleteSpan.addEventListener("click", handleDelete);
-    newComment.appendChild(deleteSpan);
+      // 작성자
+      const ownerNameSpan = document.createElement("div");
+      ownerNameSpan.className = "comment__owername";
+      ownerNameSpan.innerText = `${comment.ownername}`;
 
-    // // 작성자
-    const ownerName = document.createElement("span");
-    ownerName.className = "comment__owername";
-    ownerName.innerHTML = comment.ownername;
-    newComment.appendChild(ownerName);
+      // 작성시간
+      const commnetCreate = document.createElement("div");
+      commnetCreate.innerText = new Date(comment.createdAt).toLocaleDateString("ko-kr", {year: 'numeric', month: 'long', day: 'numeric'})
+      commnetCreate.className ="comment__createdAt";
 
-    // // 작성 시간
-    // const commnetCreate = document.createElement("span");
-    // commnetCreate.className = "comment__createdat";
-    // newComment.appendChild(commnetCreate);
+      // 댓글삭제 버튼
+      const deleteSpan = document.createElement("span");
+      deleteSpan.innerText = "❌";
+      deleteSpan.id = "deleteBtn";
+      deleteSpan.className = "video__comment__deleteBtn";
+      deleteSpan.addEventListener("click", handleDelete);
+      
+      // 추가
+      newComment.appendChild(owenrAvatar);
+      newComment.appendChild(ownerNameSpan);
+      newComment.appendChild(commnetCreate);
+      newComment.appendChild(span);
+      newComment.appendChild(deleteSpan);
 
-    // // 작성자 아바타
-    // const owenrAvatar = document.createElement("span");
-    // owenrAvatar.className = "comments__avatar";
-    // newComment.appendChild(owenrAvatar);
+      videoComments.prepend(newComment);
 };
 
 const handleSubmit = async (event) => {
@@ -55,8 +59,14 @@ const handleSubmit = async (event) => {
     });
     if (response.status === 201) {
         textarea.value = "";
-        const { newCommentId } = await response.json();
-        addComment(text, newCommentId);
+        const { 
+          newCommentId, comment
+        } = await response.json();
+        addComment(
+          text, 
+          newCommentId, 
+          comment
+        );
     };
 };
 

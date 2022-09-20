@@ -158,12 +158,16 @@ export const creatComment = async (req, res)=> {
         text:text,
         owner: user._id,
         video: id,
+        //
         ownername : user.name,
         avatarUrl: user.avatarUrl,
     });
     video.comments.push(comment._id);
     video.save();
-    return res.status(201).json({ newCommentId: comment._id });
+    res.status(201).json({ 
+        newCommentId: comment._id,
+        comment,
+    });
 };
 
 // --- deleteComment

@@ -289,6 +289,6 @@ export const see = async (req, res) => {
     // const videos = await Video.find({owner: user._id});
     res.render("user/profile", { 
         pageTitle: `${user.name}의 Profile`,
-        user,
+        user
     });
 };

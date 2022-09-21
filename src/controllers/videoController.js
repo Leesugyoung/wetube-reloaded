@@ -2,15 +2,12 @@ import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
 import { compareSync } from "bcrypt";
-import { Value } from "sass";
 
 export const home = async (req, res) => {
-    const { id } = req.params;
     const videos = await Video.find({})
         .sort({ createdAt :"desc"})
         .populate("owner");
-    const videoId = await Video.findById(id);
-    res.render("home", {pageTitle: "Home", videos, videoId });
+    res.render("home", {pageTitle: "Home", videos });
 };
 
 // --- watch
@@ -32,6 +29,7 @@ export const watch = async (req, res) => {
     },);
 };
 
+
 // --- getEdit
 export const getEdit = async (req, res) => {
     const { id } = req.params;
@@ -42,30 +40,32 @@ export const getEdit = async (req, res) => {
     }
     // video.owner 가 object type 이므로 string으로 변환 
     if (String(video.owner) !== String(_id)) {
-        return res.status(403).redirect("/");
+        res.status(403).redirect("/");
     }
     return res.render("video/edit", {pageTitle: `Edit: ${video.title}`, video});
 };
 
 // --- postEdit
 export const postEdit = async (req, res) => {
+    const {
+      user: { _id },
+    } = req.session;
     const { id } = req.params;
     const { title, description, hashtags } = req.body;
-    const { user: { _id }} = req.session;
-    const video = await Video.exists({_id:id});
+    const video = await Video.exists({ _id: id });
     if (!video) {
-        return res.status(404).render("404", {pageTitle : "Video not found."});
+      return res.status(404).render("404", { pageTitle: "Video not found." });
     }
-    if (String(video.owner) !== String(_id)) {
-        return res.status(403).redirect("/");
+    if ((String(video._id)) !== String(id)) {
+      req.flash("error","You are not the owenr of the video.");
+      return res.status(403).redirect("/");
     }
     await Video.findByIdAndUpdate(id, {
-        // video.title = req.body;
-        title, 
-        description, 
-        hashtags: Video.formatHashtags(hashtags),
+      title,
+      description,
+      hashtags: Video.formatHashtags(hashtags),
     });
-    req.flash("success","Changes saved.");
+    req.flash("success", "Changes saved.");
     return res.redirect(`/videos/${id}`);
 };
 
@@ -95,6 +95,7 @@ export const postUpload = async (req, res) => {
         user.save();
         return res.redirect("/");
     } catch(error){
+        console.log(error);
         return res.status(400).render("video/upload", { 
             pageTitle: "Upload Video", 
             errorMessage : error.message,

@@ -7,7 +7,9 @@ const addComment = (text, id, comment) => {
       const newComment = document.createElement("li");
       newComment.dataset.id = id;
       newComment.className = "video__comment";
+
       const span = document.createElement("span");
+      span.className = "comment__text";
       span.innerText = ` ${text}`;
       
       // 작성자 아바타
@@ -16,12 +18,12 @@ const addComment = (text, id, comment) => {
       owenrAvatar.className = "comments__avatar";
 
       // 작성자
-      const ownerNameSpan = document.createElement("div");
-      ownerNameSpan.className = "comment__owername";
-      ownerNameSpan.innerText = `${comment.ownername}`;
+      const ownerNameSpan = document.createElement("span");
+      ownerNameSpan.className = "comment__owner";
+      ownerNameSpan.innerText = comment.ownername;
 
       // 작성시간
-      const commnetCreate = document.createElement("div");
+      const commnetCreate = document.createElement("span");
       commnetCreate.innerText = new Date(comment.createdAt).toLocaleDateString("ko-kr", {year: 'numeric', month: 'long', day: 'numeric'})
       commnetCreate.className ="comment__createdAt";
 

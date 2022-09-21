@@ -94,9 +94,10 @@
 .video__add-comments{
   margin-left: 10px;
   .video__comment-form{
+    display: flex;
+    align-items: center;
     background-color: transparent;
     border: 0;
-    padding-bottom: 20px;
   }
   .video__comment-form__text{
     width: 600px;
@@ -129,24 +130,30 @@
 .video__comments {
     margin-left: 10px;
     margin-right: 10px;
-    display: flex;
-    flex-direction: column;
     width: 100%;
     // margin: 0 auto;
     margin-top: 20px;
+}
 
-    .video__comment {
-      display: grid;
-      overflow: hidden;
-      font-size: 14px;
-      padding: 5px;
-      color: #FFFFFF;
-      margin: 10px 0;
-      i.fas.fa-xmark{
-        margin-left: 20px;
-      }
-      
-    }
+.video__comment {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  font-size: 14px;
+  color: #FFFFFF;
+  margin: 20px 0;
+  i.fas.fa-xmark{
+    margin-left: 20px;
+  }
+.comment__owner{
+  padding: 0 5px;
+  font-size: 14px;
+}
+.comment__createdAt{
+  padding: 0 5px;
+  font-size: 13px;
+  color: rgba($color: #FFFFFF, $alpha: 0.5);;
+}
 }
 
 .video__comment__deleteBtn {

@@ -1,5 +1,5 @@
 .search__form{
-    margin-bottom: 60px;
+    margin-bottom: 60px !important;
     display: flex;
     align-items: center;
     position: relative;
@@ -12,14 +12,12 @@
         margin-bottom: 5px;
         font-size: 16px;
         color: white;
-        width: 90%;
-    }
-    button {
-        all : unset;
+        width: 80%;
     }
     button{
+        all : unset;
         position: absolute;
-        right: 15px;
+        right: 50px;
         font-size: 18px;
         background-color: rgba(0, 0, 0, 0);
         text-align: center;

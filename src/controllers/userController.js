@@ -287,8 +287,7 @@ export const see = async (req, res) => {
     }
     // user와 owner 의 id 가 같은 video 를 찾는다
     // const videos = await Video.find({owner: user._id});
-
-    return res.render("user/profile", {
+    res.render("user/profile", { 
         pageTitle: `${user.name}의 Profile`,
         user,
     });

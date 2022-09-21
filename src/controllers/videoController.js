@@ -2,12 +2,15 @@ import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
 import { compareSync } from "bcrypt";
+import { Value } from "sass";
 
 export const home = async (req, res) => {
+    const { id } = req.params;
     const videos = await Video.find({})
-    .sort({ createdAt :"desc"})
-    .populate("owner");
-    return res.render("home", {pageTitle: "Home", videos });
+        .sort({ createdAt :"desc"})
+        .populate("owner");
+    const videoId = await Video.findById(id);
+    res.render("home", {pageTitle: "Home", videos, videoId });
 };
 
 // --- watch

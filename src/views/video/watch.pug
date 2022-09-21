@@ -37,10 +37,10 @@ block content
                 if String(video.owner._id) === String(loggedInUser._id)
                     i.fas.fa-pen
                         a(href=`${video.id}/edit`)
-                        span   수정
+                            span   수정
                     i.fas.fa-xmark
                         a(href=`${video.id}/delete`) 
-                        span 삭제
+                            span 삭제
         hr.line
         div.video__OwnerDsecContainer
             img(src="/" + video.owner.avatarUrl).video__avatar
@@ -63,8 +63,8 @@ block content
                     div.video_commentsavatar
                         img(src="/" + comment.avatarUrl).comments__avatar
                     div
-                        div.comment__owner#commentOwnername=comment.ownername
-                        div.comment__createdAt #{comment.createdAt.toLocaleDateString("ko-kr", {year: 'numeric', month: 'long', day: 'numeric'})}
+                        span.comment__owner#commentOwnername=comment.ownername
+                        span.comment__createdAt #{comment.createdAt.toLocaleDateString("ko-kr", {year: 'numeric', month: 'long', day: 'numeric'})}
                         span.comment__text #{comment.text}
                         if String(comment.owner._id) === String(loggedInUser._id)
                             span.video__comment__deleteBtn#deleteBtn ❌

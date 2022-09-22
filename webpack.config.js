@@ -4,7 +4,6 @@ const path = require("path");
 const BASE_JS = "./src/client/js/";
 
 module.exports = {
-    mode: "development",
     entry: {
       main: BASE_JS + "main.js",
       videoPlayer: BASE_JS + "videoPlayer.js",
@@ -12,7 +11,6 @@ module.exports = {
       commentSection: BASE_JS + "commentSection.js",
     },
     // 변경하고자 하는 file의 경로
-    watch: true,
     plugins: [new MiniCssExtractPlugin({
       filename:"css/styles.css",
     })],

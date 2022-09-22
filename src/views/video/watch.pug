@@ -24,7 +24,7 @@ block content
         p.video__title=video.title
         p.video__ViewCreate
             span.video-mixin-views 조회수 #{video.meta.views}회  •   
-            span.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
+            span.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric'})
             span.video__icons
                 i.fas.fa-thumbs-up  
                     span 좋아요
@@ -64,7 +64,7 @@ block content
                         img(src="/" + comment.avatarUrl).comments__avatar
                     div
                         span.comment__owner#commentOwnername=comment.ownername
-                        span.comment__createdAt #{comment.createdAt.toLocaleDateString("ko-kr", {year: 'numeric', month: 'long', day: 'numeric'})}
+                        span.comment__createdAt #{comment.createdAt.toLocaleDateString("ko-kr", {year: 'numeric', month: 'numeric', day: 'numeric'})}
                         span.comment__text #{comment.text}
                         if String(comment.owner._id) === String(loggedInUser._id)
                             span.video__comment__deleteBtn#deleteBtn ❌

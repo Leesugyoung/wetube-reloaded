@@ -24,7 +24,7 @@ const addComment = (text, id, comment) => {
 
       // 작성시간
       const commnetCreate = document.createElement("span");
-      commnetCreate.innerText = new Date(comment.createdAt).toLocaleDateString("ko-kr", {year: 'numeric', month: 'long', day: 'numeric'})
+      commnetCreate.innerText = new Date(comment.createdAt).toLocaleDateString("ko-kr", {year: 'numeric', month: 'numeric', day: 'numeric'})
       commnetCreate.className ="comment__createdAt";
 
       // 댓글삭제 버튼

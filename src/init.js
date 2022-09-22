@@ -9,5 +9,4 @@ const PORT = 4000;
 
 const handleListening = () => 
     console.log(`✅ Sever listening on port http://localhost:${PORT} 🚀`);
-
 app.listen(4000, handleListening);

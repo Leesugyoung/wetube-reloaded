@@ -1,6 +1,6 @@
 import User from "../models/User";
 import Video from "../models/Video";
-import bcrypt from "bcrypt"; 
+import bcrypt from "bcryptjs"; 
 import fetch from "node-fetch";
 
 // --- getJoin
@@ -55,7 +55,7 @@ export const getLogin = (req, res) => {
 
 
 // --- postLogin 
-export const postLogin = async (req, res) => {
+export const postLogin = async(req, res) => {
     const { username, password } = req.body;
     const pageTitle = "Login";
     const user = await User.findOne({ username, socialOnly:false });
@@ -66,6 +66,7 @@ export const postLogin = async (req, res) => {
             errorMessage:"An account with this username does not exists."
         });
     }
+
     const ok = await bcrypt.compare(password, user.password);
     
     if (!ok) {

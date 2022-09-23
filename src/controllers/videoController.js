@@ -1,7 +1,7 @@
 import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
-import { compareSync } from "bcrypt";
+import { compareSync } from "bcryptjs";
 
 export const home = async (req, res) => {
     const videos = await Video.find({})

@@ -212,7 +212,7 @@ export const postEdit = async (req,res) => {
         {
             // form 에 file이 존재한다면 file.path 사용
             // 존재하지 않는다면 기존 session의 avatarUrl 로 저장
-            avatarUrl: file ? file.path : avatarUrl,
+            avatarUrl: file ? file.location : avatarUrl,
             name,
             email,
             username,

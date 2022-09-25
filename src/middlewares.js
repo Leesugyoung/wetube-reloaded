@@ -7,12 +7,17 @@ const s3 = new aws.S3({
         accessKeyId: process.env.AWS_ID,
         secretAccessKey: process.env.AWS_SECRET,
     }
-})
+});
 
 const multerUploader = multerS3({
     s3:s3,
-    bucket: "wetube-leesu"
-})
+    bucket: "wetube-leesu",
+    Condition: {
+        StringEquals: {
+            "s3:x-amz-acl": ["public-read"],
+        },
+    }
+});
 
 export const localsMiddleware = (req, res, next) => {
     res.locals.loggedIn = Boolean(req.session.loggedIn);

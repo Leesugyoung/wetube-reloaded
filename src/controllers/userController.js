@@ -2,6 +2,7 @@ import User from "../models/User";
 import Video from "../models/Video";
 import bcrypt from "bcryptjs"; 
 import fetch from "node-fetch";
+import { ProcessCredentials } from "aws-sdk";
 
 // --- getJoin
 export const getJoin = (req, res) => res.render("user/join", { pageTitle : "Join" });
@@ -207,12 +208,13 @@ export const postEdit = async (req,res) => {
                 errorMessage: "Email is already taken." });
         };
     };
+    const isHeroku = process.env.NODE_ENV === "production";
     const updatedUser = await User.findByIdAndUpdate(
         _id,
         {
             // form 에 file이 존재한다면 file.path 사용
             // 존재하지 않는다면 기존 session의 avatarUrl 로 저장
-            avatarUrl: file ? file.location : avatarUrl,
+            avatarUrl: file ? (isHeroku ? file.location : file.path) : avatarUrl,
             name,
             email,
             username,
@@ -220,7 +222,6 @@ export const postEdit = async (req,res) => {
         },
         {new:true}
     )
-    console.log("file.location" + file.location);
     req.session.user = updatedUser;
     return res.redirect("/users/edit");
 };

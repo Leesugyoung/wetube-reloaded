@@ -79,14 +79,15 @@ export const postUpload = async (req, res) => {
     const { user:{ _id } } = req.session;
     const { video, thumb } = req.files;
     const { title, description, hashtags } = req.body;
+    const isHeroku = Process.env.NODE_ENV === "production";
     // db에 저장하는 방식 .create() or .save()
     try {
         const newVideo = await Video.create({
             // videoschema: req.body ,
             title,
             description,
-            fileUrl : video[0].location,
-            thumbUrl : thumb[0].location.replace(/[\\]/g, "/"),
+            fileUrl : isHeroku ? video[0].location : video[0].path,
+            thumbUrl : isHeroku ? thumb[0].location.replace(/[\\]/g, "/") : video[0].path,
             owner:_id,
             hashtags: Video.formatHashtags(hashtags),
         });

@@ -9,9 +9,21 @@ const s3 = new aws.S3({
     }
 });
 
-const multerUploader = multerS3({
+const isHeroku = process.env.NODE_ENV === "production";
+
+const s3ImageUploader = multerS3({
     s3:s3,
-    bucket: "wetube-leesu",
+    bucket: "wetube-leesu/images",
+    Condition: {
+        StringEquals: {
+            "s3:x-amz-acl": ["public-read"],
+        },
+    }
+});
+
+const s3VideoUploader = multerS3({
+    s3:s3,
+    bucket: "wetube-leesu/videos",
     Condition: {
         StringEquals: {
             "s3:x-amz-acl": ["public-read"],
@@ -23,6 +35,7 @@ export const localsMiddleware = (req, res, next) => {
     res.locals.loggedIn = Boolean(req.session.loggedIn);
     res.locals.siteName = "Wetube";
     res.locals.loggedInUser = req.session.user || {};
+    res.locals.isHeroku = isHeroku;
     next();
 };
 
@@ -52,16 +65,18 @@ export const publicOnlyMiddleware = (req, res, next) => {
 /** form의 input에서 오는 avatar file을 uploads폴더에 저장하고 업로드, 이후 postEdit 컨트롤러에 file 정보전달, 'req.file' 제공 */
 export const uploadFilesMiddleware = multer({ dest: "uploads/"});
 
-export const avatarUpload = multer({ dest: "uploads/avatars/", 
+export const avatarUpload = multer({ 
+    dest: "uploads/avatars/", 
     limits: {
         fileSize: 3000000,  // bytes
     },
-    storage: multerUploader,
+    storage: isHeroku ? s3ImageUploader : undefined,
 });
 
-export const videoUpload = multer({ dest: "uploads/videos/", 
+export const videoUpload = multer({ 
+    dest: "uploads/videos/", 
     limits: {
         fileSize: 10000000,  // bytes
     },
-    storage: multerUploader,
+    storage: isHeroku ? s3VideoUploader : undefined,
 });

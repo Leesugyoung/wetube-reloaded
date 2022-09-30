@@ -53,7 +53,7 @@ block content
     if loggedIn
         div.video__add-comments
             form.video__comment-form#commentForm
-                img(src=loggedInUser.avatarUrl, crossorigin).comments__avatar
+                img(src=loggedInUser.avatarUrl, crossorigin="use-credentials").comments__avatar
                 textarea.video__comment-form__text(cols="30", rows="20", placeholder="댓글 입력..")
                 button.video__comment-form__btn 댓글
     div.video__comments
@@ -61,7 +61,7 @@ block content
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id) 
                     div.video_commentsavatar
-                        img(src= comment.avatarUrl, crossorigin).comments__avatar
+                        img(src= comment.avatarUrl, crossorigin="use-credentials").comments__avatar
                     div
                         span.comment__owner#commentOwnername=comment.ownername
                         span.comment__createdAt #{comment.createdAt.toLocaleDateString("ko-kr", {year: 'numeric', month: 'numeric', day: 'numeric'})}

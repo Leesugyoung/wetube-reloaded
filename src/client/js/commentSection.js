@@ -14,7 +14,7 @@ const addComment = (text, id, comment) => {
       
       // 작성자 아바타
       const owenrAvatar = document.createElement("img");
-      owenrAvatar.setAttribute('src', comment.avatarUrl);
+      owenrAvatar.setAttribute('src',comment.avatarUrl);
       owenrAvatar.className = "comments__avatar";
 
       // 작성자

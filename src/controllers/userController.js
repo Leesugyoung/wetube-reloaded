@@ -220,6 +220,7 @@ export const postEdit = async (req,res) => {
         },
         {new:true}
     )
+    console.log("file.location" + file.location);
     req.session.user = updatedUser;
     return res.redirect("/users/edit");
 };

@@ -61,7 +61,7 @@ block content
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id) 
                     div.video_commentsavatar
-                        img(src=comment.avatarUrl, crossorigin).comments__avatar
+                        img(src= comment.avatarUrl, crossorigin).comments__avatar
                     div
                         span.comment__owner#commentOwnername=comment.ownername
                         span.comment__createdAt #{comment.createdAt.toLocaleDateString("ko-kr", {year: 'numeric', month: 'numeric', day: 'numeric'})}

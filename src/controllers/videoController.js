@@ -185,8 +185,6 @@ export const deleteComment = async (req, res) => {
         user: { _id: userId },
       },
     } = req;
-    console.log("commentId : " + commentId);
-    console.log("commentId : " + userId);
     const comment = await Comment.findById(commentId)
       .populate("owner")
       .populate("video");

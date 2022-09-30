@@ -185,6 +185,8 @@ export const deleteComment = async (req, res) => {
         user: { _id: userId },
       },
     } = req;
+    console.log("commentId : " + commentId);
+    console.log("commentId : " + userId);
     const comment = await Comment.findById(commentId)
       .populate("owner")
       .populate("video");
@@ -198,7 +200,7 @@ export const deleteComment = async (req, res) => {
     if (!video) {
       return res.sendStatus(404);
     }
-  
+
     //댓글 삭제, 비디오에서 댓글 배열 삭제, 유저에서 댓글 배열 삭제
     user.comments.splice(user.comments.indexOf(commentId), 1);
     await user.save();

@@ -69,8 +69,9 @@ const formatTime = (seconds) => {
 
 
 const handleLoadedMetadata = () => {
-        totalTime.innerText = formatTime(Math.floor(video.duration));
-        timeline.max = Math.floor(video.duration);
+    totalTime.innerText = formatTime(Math.floor(video.duration));
+    timeline.max = Math.floor(video.duration);
+    console.log(video.duration);
 };
 
 /** 비디오 시간 감지 function */

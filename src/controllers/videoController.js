@@ -79,7 +79,7 @@ export const postUpload = async (req, res) => {
     const { user:{ _id } } = req.session;
     const { video, thumb } = req.files;
     const { title, description, hashtags } = req.body;
-    const isHeroku = Process.env.NODE_ENV === "production";
+    const isHeroku = process.env.NODE_ENV === "production";
     // db에 저장하는 방식 .create() or .save()
     try {
         const newVideo = await Video.create({

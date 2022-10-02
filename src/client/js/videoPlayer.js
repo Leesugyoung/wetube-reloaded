@@ -48,14 +48,12 @@ const handleVolumeChange = (event) => {
 
     if(video.muted) {
         video.muted = false;
-        muteBtn.classList = "fas fa-volume-mute";
     }
     volumeValue = Number(value);
     video.volume = value;
 
     if (volumeValue === 0) {
         video.muted = true;
-        muteBtn.classList = "fas fa-volume-up";
     }
 };
 
@@ -71,7 +69,7 @@ const handleLoadedMetadata = () => {
     if (!isNaN(video.duration)) {
         totalTime.innerText = formatTime(Math.floor(video.duration));
         timeline.max = Math.floor(video.duration);
-    }
+        }
 };
 
 /** 비디오 시간 감지 function */

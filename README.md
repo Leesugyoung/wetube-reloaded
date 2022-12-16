@@ -1,14 +1,12 @@
-# Wetube
-# (Youtube 클론코딩)
-
-프론트부터 백까지 모두 다뤄보고 싶어 Youtube 클론코딩 강의를 보며 제작하였습니다 :)
+# Wetube (Youtube 클론코딩)   
+프론트부터 백까지 모두 다뤄보고 싶어 Youtube 클론코딩 강의를 보며 제작하였습니다 :)   
 
 ------------
 
 ### 🌐 프로젝트 링크
 
-[Wetube 바로가기](https://wetube-leesu.herokuapp.com/)
--> ※ Heroku 프리티어가 종료되어 현재 접속이 불가합니다ㅠㅠ 다른 클라우드 서비스로 배포 예정인 점 양해 부탁드립니다! 빠르게 수정토록 하겠습니다.
+[Wetube 바로가기](https://wetube-leesu.herokuapp.com/)   
+-> ※ Heroku 프리티어가 종료되어 현재 접속이 불가합니다ㅠㅠ 다른 클라우드 서비스로 배포 예정인 점 양해 부탁드립니다! 빠르게 수정토록 하겠습니다.   
 
 ------------
 
@@ -16,7 +14,7 @@
 - 프론트 : SCSS, PUG
 - 백엔드 : NodeJs, MongoDB, Express
 - 배포 :  AWS S3, Mongo Atlas, Heroku
-- 라이브러리 : npm, WebPack, Mongoose, babel, express-session, multer, FFmpeg 등
+- 라이브러리 : npm, WebPack, Mongoose, babel, express-session, multer, FFmpeg 등   
 
 ------------
 
@@ -34,7 +32,7 @@
     - (화면에서 보이는 좋아요, 싫어요는 기능되지 않습니다..🤣)
 - 그 외
     - 댓글 추가 및 삭제 기능
-    - 영상 제목 검색 기능
+    - 영상 제목 검색 기능   
 
 ------------
 

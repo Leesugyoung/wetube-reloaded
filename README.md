@@ -40,17 +40,17 @@
 
 ### 📝 프로젝트 구조
 
--📂[src]
-➡[client] ➡️ js　　―　js 폴더 (videoEvent)
-➡[client] ➡️ scss　　―　css 폴더
-➡[controllers]　　―　사용자 요청/응답 처리 폴더
-➡[models]　　―　DB model 폴더
-➡[routers]　　―　사용자 요청/응답 라우터 폴더 
-➡[views]　　―　PUG 템플릿 폴더
-➡db.js　　―　mongoose DB 연결
-➡init.js　　―　서버 실행
-➡middlewares.js　　―　express middleware
-➡server.js　　―　express 서버 세팅
+-📂[src]   
+➡[client] ➡️ js　　―　js 폴더 (videoEvent)   
+➡[client] ➡️ scss　　―　css 폴더   
+➡[controllers]　　―　사용자 요청/응답 처리 폴더   
+➡[models]　　―　DB model 폴더   
+➡[routers]　　―　사용자 요청/응답 라우터 폴더    
+➡[views]　　―　PUG 템플릿 폴더   
+➡db.js　　―　mongoose DB 연결   
+➡init.js　　―　서버 실행   
+➡middlewares.js　　―　express middleware   
+➡server.js　　―　express 서버 세팅   
 
 ------------
 

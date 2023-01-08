@@ -9,15 +9,14 @@
 
 ### 🌐 프로젝트 링크
 
-[Wetube 바로가기](https://wetube-leesu.herokuapp.com/)   
--> ※ Heroku 프리티어가 종료되어 현재 접속이 불가합니다ㅠㅠ 다른 클라우드 서비스로 배포 예정인 점 양해 부탁드립니다! 빠르게 수정토록 하겠습니다.   
+[Wetube 바로가기](https://wetube.fly.dev/)    
 
 ------------
 
 - 언어 : JavaScript(ES6)
 - 프론트 : SCSS, PUG
 - 백엔드 : NodeJs, MongoDB, Express
-- 배포 :  AWS S3, Mongo Atlas, Heroku
+- 배포 :  AWS S3, Mongo Atlas, Fly.io
 - 라이브러리 : npm, WebPack, Mongoose, babel, express-session, multer, FFmpeg 등   
 
 ------------

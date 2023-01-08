@@ -81,7 +81,7 @@
   border-width: 0.5;
 }
 
-// 댓글 아바타
+// 댓글 아바타(공통)
 .comments__avatar{
   width: 48px;
   height: 48px;
@@ -126,7 +126,7 @@
   
 }
 
-// 댓글 등록란
+// ------댓글 등록란
 .video__comments {
     margin-left: 10px;
     margin-right: 10px;
@@ -145,6 +145,11 @@
   i.fas.fa-xmark{
     margin-left: 20px;
   }
+
+.video_commentsavatar{
+  margin-right: 2px;
+}
+
 .comment__owner{
   padding: 0 5px;
   font-size: 14px;

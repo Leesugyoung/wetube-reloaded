@@ -43,7 +43,7 @@ block content
                             span 삭제
         hr.line
         div.video__OwnerDsecContainer
-            img.video__avatar(src=video.owner.avatarUrl, crossorigin)
+            img.video__avatar(src=video.owner.avatarUrl, crossorigin).video__avatar
             div
                 p.video__owner
                     a(href=`/users/${video.owner._id}`)=video.owner.name

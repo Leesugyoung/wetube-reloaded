@@ -10,32 +10,32 @@ import apiRouter from "./routers/apiRouter";
 import { localsMiddleware } from "./middlewares";
 
 const app = express();
-const logger = morgan("dev"); 
+const logger = morgan("dev");
 
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(logger);
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
-    session({
+  session({
     secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
-    store : MongoStore.create({ mongoUrl: process.env.DB_URL}),
-}));
+    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+  })
+);
 app.use(localsMiddleware);
 app.use(flash());
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.header("Cross-Origin-Opener-Policy", "same-origin");
-    res.header("Cross-Origin-Embedder-Policy", "credentialless");
-    res.header("Access-Control-Allow-Headers");
-    res.header("Origin, X-Requested-With, Content-Type, Accept");
-    next();
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header("Cross-Origin-Embedder-Policy", "credentialless");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
 });
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);

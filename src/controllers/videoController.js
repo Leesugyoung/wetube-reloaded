@@ -171,7 +171,7 @@ export const creatComment = async (req, res) => {
     ownername: user.name,
     avatarUrl: user.avatarUrl,
   });
-  console.log("댓글등록 comment._id", comment._id);
+  // console.log("댓글등록 comment._id", comment._id);
   video.comments.push(comment._id);
   video.save();
   res.status(201).json({
@@ -194,6 +194,7 @@ export const deleteComment = async (req, res) => {
     await comment.remove();
     return res.sendStatus(204);
   } catch (error) {
+    // console.log("error", error);
     return res.sendStatus(500);
   }
 };

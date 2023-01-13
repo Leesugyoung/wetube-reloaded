@@ -1,6 +1,6 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
-let deleteBtns = document.querySelectorAll("#deleteBtn");
+let deleteBtns = document.querySelectorAll(".video__comment__deleteBtn");
 
 // addComment 기능
 // 댓글을 작성하여 데이터베이스에 추가된 댓글이 바로 탬플릿에 적용되면 좋지만 정보는 변경되기 전을 반영하고 있기 때문에,
@@ -15,6 +15,7 @@ const addComment = (text, id, comment) => {
   const span = document.createElement("span");
   span.className = "comment__text";
   span.innerText = ` ${text}`;
+  span.dataset.id = id;
 
   // 작성자 아바타
   const owenrAvatar = document.createElement("img");
@@ -36,8 +37,8 @@ const addComment = (text, id, comment) => {
 
   // 댓글삭제 버튼
   const deleteSpan = document.createElement("span");
+  deleteSpan.dataset.id = id;
   deleteSpan.innerText = "❌";
-  deleteSpan.id = "deleteBtn";
   deleteSpan.className = "video__comment__deleteBtn";
   deleteSpan.addEventListener("click", handleDelete);
 
@@ -69,6 +70,7 @@ const handleSubmit = async event => {
   if (response.status === 201) {
     textarea.value = "";
     const { newCommentId, comment, commentId } = await response.json();
+    console.log("댓글등록", newCommentId, response);
     addComment(text, newCommentId, comment, commentId);
   }
 };
@@ -78,19 +80,25 @@ if (form) {
 }
 
 // 코드챌린지(댓글삭제)
-const handleDelete = async event => {
-  const li = event.target.parentElement;
-  const {
-    dataset: { id: commentId },
-  } = li;
-  li.remove();
-  await fetch(`/api/comments/${commentId}/delete`, {
-    method: "DELETE",
-  });
+
+const removeComment = commentId => {
+  const commentToRemove = document.querySelector(`li[data-id='${commentId}']`);
+  commentToRemove.remove();
 };
 
-if (deleteBtns) {
-  deleteBtns.forEach(deleteBtn => {
-    deleteBtn.addEventListener("click", handleDelete);
+const handleDelete = async event => {
+  const commentId = event.target.dataset.id;
+  const response = await fetch(`/api/comments/${commentId}/delete`, {
+    method: "DELETE",
   });
-}
+  if (response.status === 204) {
+    removeComment(commentId);
+  } else {
+    console.log("삭제버튼 클릭", commentId, response);
+  }
+};
+
+// 삭제 버튼에 이벤트 리스너 추가
+deleteBtns.forEach(btn => {
+  btn.addEventListener("click", handleDelete);
+});

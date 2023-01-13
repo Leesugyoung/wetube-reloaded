@@ -43,7 +43,7 @@ block content
                             span 삭제
         hr.line
         div.video__OwnerDsecContainer
-            img.video__avatar(src=video.owner.avatarUrl, crossorigin).video__avatar
+            img.video__avatar(src=video.owner.avatarUrl, crossorigin)
             div
                 p.video__owner
                     a(href=`/users/${video.owner._id}`)=video.owner.name
@@ -61,13 +61,13 @@ block content
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id) 
                     div.video_commentsavatar
-                        img.comments__avatar(src= comment.avatarUrl, crossorigin)
+                       img.comments__avatar(src= comment.avatarUrl, crossorigin)
                     div
                         span.comment__owner#commentOwnername=comment.ownername
                         span.comment__createdAt #{comment.createdAt.toLocaleDateString("ko-kr", {year: 'numeric', month: 'numeric', day: 'numeric'})}
                         span.comment__text #{comment.text}
                         if String(comment.owner._id) === String(loggedInUser._id)
-                            span.video__comment__deleteBtn#deleteBtn ❌
+                            span.video__comment__deleteBtn(data-id=comment.id)  ❌
 
 block scripts
     script(src="/static/js/videoPlayer.js")

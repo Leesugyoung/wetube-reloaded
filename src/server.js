@@ -31,9 +31,9 @@ app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header("Cross-Origin-Embedder-Policy", "credentialless");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "content-type");
   next();
 });
 app.use("/videos", videoRouter);

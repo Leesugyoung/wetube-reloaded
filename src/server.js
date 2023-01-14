@@ -32,9 +32,8 @@ app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.header("Cross-Origin-Embedder-Policy", "credentialless");
-  res.header("Cross-Origin-Opener-Policy", "same-origin");
   res.header("Access-Control-Allow-Credentials", true);
+  res.header("Cross-Origin-Embedder-Policy", "credentialless");
   next();
 });
 app.use("/videos", videoRouter);

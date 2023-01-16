@@ -54,10 +54,8 @@
 
 #### CORS 이슈 수정 필요
 
-- 현재 avatar URL 은 AWS S3 도메인에서 불러지나  
+- 현재 avatar URL 은 다른 도메인(AWS S3)에서 불러지나  
   FFmpeg 모듈은 실행될 때 다른 도메인에서 불러지는 URL 을 보안상 허용하지 않고 있음
-
-이슈 코드
 
 ```
 - server.js
@@ -70,12 +68,29 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "content-type");
   next();
 });
-// → avatar url 을 불러오기 위해 allow origin 허용처리
+// → avatar url 을 불러오기 위한 allow origin 허용처리
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/api", apiRouter);
 app.use("/videos", videoRouter);
 ```
+
+- 이에 FFmpeg 를 사용하여 녹화 후 다운로드 버튼을 클릭하면 발생하는 오류
+
+```
+Uncaught (in promise) ReferenceError: SharedArrayBuffer is not defined
+```
+
+- 위 오류를 해결하려면 아래와 같은 CORS 설정이 필요하나
+
+```
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+```
+
+"same-origin" 은 현재 페이지와 같은 출처에서 열린 페이지만 허용하도록 지정하므로,  
+avatar URL CORS 정책과 충돌하여 avatar URL 이 모두 깨지게됨.  
+해결 방법이 필요하다 :(
 
 ---
 

@@ -48,11 +48,38 @@
 ➡db.js 　　―　 mongoose DB 연결  
 ➡init.js 　　―　서버 실행  
 ➡middlewares.js 　　―　 express middleware  
-➡server.js 　　―　 express 서버 세팅  
+➡server.js 　　―　 express 서버 세팅
 
 ---
 
-#### 🤯 추후 추가 예정인 기능  
+#### CORS 이슈 수정 필요
+
+- 현재 avatar URL 은 AWS S3 도메인에서 불러지나  
+  FFmpeg 모듈은 실행될 때 다른 도메인에서 불러지는 URL 을 보안상 허용하지 않고 있음
+
+이슈 코드
+
+```
+- server.js
+
+app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("assets"));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://wetube.fly.dev");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "content-type");
+  next();
+});
+// → avatar url 을 불러오기 위해 allow origin 허용처리
+app.use("/", rootRouter);
+app.use("/users", userRouter);
+app.use("/api", apiRouter);
+app.use("/videos", videoRouter);
+```
+
+---
+
+#### 🤯 추후 추가 예정인 기능
 
 - 네이버 openAPI 소셜 로그인 기능 구현
 - 동영상 좋아요, 싫어요 기능

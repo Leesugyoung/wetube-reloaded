@@ -2,7 +2,6 @@ import User from "../models/User";
 import Video from "../models/Video";
 import bcrypt from "bcryptjs";
 import fetch from "node-fetch";
-import { ProcessCredentials } from "aws-sdk";
 
 // --- getJoin
 export const getJoin = (req, res) =>

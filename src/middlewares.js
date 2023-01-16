@@ -9,6 +9,8 @@ const s3 = new aws.S3({
   },
 });
 
+const isFlyio = process.env.NODE_ENV === "production";
+
 const s3ImageUploader = multerS3({
   s3: s3,
   bucket: "wetube-leesu/images",
@@ -18,8 +20,6 @@ const s3ImageUploader = multerS3({
     },
   },
 });
-
-const isFlyio = process.env.NODE_ENV === "production";
 
 const s3VideoUploader = multerS3({
   s3: s3,
@@ -60,9 +60,6 @@ export const publicOnlyMiddleware = (req, res, next) => {
     return res.redirect("/");
   }
 };
-
-/** form의 input에서 오는 avatar file을 uploads폴더에 저장하고 업로드, 이후 postEdit 컨트롤러에 file 정보전달, 'req.file' 제공 */
-export const uploadFilesMiddleware = multer({ dest: "uploads/" });
 
 export const avatarUpload = multer({
   dest: "uploads/avatars/",

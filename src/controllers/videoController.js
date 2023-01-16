@@ -98,7 +98,6 @@ export const postUpload = async (req, res) => {
     user.save();
     return res.redirect("/");
   } catch (error) {
-    console.log(error);
     return res.status(400).render("video/upload", {
       pageTitle: "Upload Video",
       errorMessage: error.message,
@@ -171,7 +170,6 @@ export const creatComment = async (req, res) => {
     ownername: user.name,
     avatarUrl: user.avatarUrl,
   });
-  // console.log("댓글등록 comment._id", comment._id);
   video.comments.push(comment._id);
   video.save();
   res.status(201).json({

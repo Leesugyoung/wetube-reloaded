@@ -27,17 +27,17 @@ app.use(
 );
 app.use(localsMiddleware);
 app.use(flash());
+
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
-app.use("/", rootRouter);
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "content-type");
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
   next();
 });
-app.use("/videos", videoRouter);
+app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/api", apiRouter);
+app.use("/videos", videoRouter);
 
 export default app;

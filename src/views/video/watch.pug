@@ -43,7 +43,7 @@ block content
                             span 삭제
         hr.line
         div.video__OwnerDsecContainer
-            img.video__avatar(src=video.owner.avatarUrl, crossorigin)
+            img.video__avatar(src=video.owner.avatarUrl,crossorigin)
             div
                 p.video__owner
                     a(href=`/users/${video.owner._id}`)=video.owner.name
@@ -53,7 +53,7 @@ block content
     if loggedIn
         div.video__add-comments
             form.video__comment-form#commentForm
-                img.comments__avatar(src=loggedInUser.avatarUrl, crossorigin)
+                img.comments__avatar(src=loggedInUser.avatarUrl,crossorigin)
                 textarea.video__comment-form__text(cols="30", rows="20", placeholder="댓글 입력..")
                 button.video__comment-form__btn 댓글
     div.video__comments
@@ -61,7 +61,7 @@ block content
             each comment in video.comments.reverse()
                 li.video__comment(data-id=comment.id) 
                     div.video_commentsavatar
-                       img.comments__avatar(src=comment.avatarUrl, crossorigin)
+                       img.comments__avatar(src=comment.avatarUrl,crossorigin)
                     div
                         span.comment__owner#commentOwnername=comment.ownername
                         span.comment__createdAt #{comment.createdAt.toLocaleDateString("ko-kr", {year: 'numeric', month: 'numeric', day: 'numeric'})}
@@ -70,6 +70,6 @@ block content
                             span.video__comment__deleteBtn(data-id=comment.id)  ❌
 
 block scripts
-    script(src="/static/js/videoPlayer.js")
+    script(src="/static/js/videoPlayer.js",crossorigin)
     if loggedIn
-        script(src="/static/js/commentSection.js") 
+        script(src="/static/js/commentSection.js",crossorigin) 

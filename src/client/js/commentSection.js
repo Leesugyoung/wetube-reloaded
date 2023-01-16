@@ -70,7 +70,6 @@ const handleSubmit = async event => {
   if (response.status === 201) {
     textarea.value = "";
     const { newCommentId, comment, commentId } = await response.json();
-    console.log("댓글등록", newCommentId, response);
     addComment(text, newCommentId, comment, commentId);
   }
 };
@@ -93,8 +92,6 @@ const handleDelete = async event => {
   });
   if (response.status === 204) {
     removeComment(commentId);
-  } else {
-    console.log("삭제버튼 클릭", commentId, response);
   }
 };
 

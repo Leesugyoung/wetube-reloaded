@@ -3,7 +3,7 @@ mixin video(video)
         div.video-mixin__thumb(
         style=`background-image:url(${video.thumbUrl});
         background-size:cover;
-        background-position:center`, crossorigin)
+        background-position:center` )
         div.video-mixin__data
             div.video-mixin__box
                 img(src=video.owner.avatarUrl).video-mixin__homeavatar

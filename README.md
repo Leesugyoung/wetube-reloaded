@@ -48,19 +48,11 @@
 ➡db.js 　　―　 mongoose DB 연결  
 ➡init.js 　　―　서버 실행  
 ➡middlewares.js 　　―　 express middleware  
-➡server.js 　　―　 express 서버 세팅
+➡server.js 　　―　 express 서버 세팅  
 
 ---
 
-#### 🔥 수정해야할 기능들
-
-- ~~동영상 댓글 등록 후 avatar url cross-origin 적용안되는 오류 ~~
-- ~~- 댓글 삭제 안되는 기능~~  
-  수정 완!
-
----
-
-#### 🤯 추후 추가 예정인 기능
+#### 🤯 추후 추가 예정인 기능  
 
 - 네이버 openAPI 소셜 로그인 기능 구현
 - 동영상 좋아요, 싫어요 기능

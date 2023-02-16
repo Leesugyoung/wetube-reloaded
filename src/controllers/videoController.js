@@ -179,7 +179,6 @@ export const creatComment = async (req, res) => {
 };
 
 // --- deleteComment
-// 코드챌린지(댓글삭제)
 export const deleteComment = async (req, res) => {
   const {
     params: { id },

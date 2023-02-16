@@ -187,7 +187,7 @@ export const postEdit = async (req, res) => {
     body: { name, email, username, location },
     file,
   } = req;
-  // code challenge!
+
   // db에서 기존 data 와 겹치는거 없는지 확인
   const existUsername = await User.exists({ username });
   const existEmail = await User.exists({ email });

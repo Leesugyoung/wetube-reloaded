@@ -52,17 +52,56 @@
 
 ---
 
-#### 🤯 추후 추가 예정인 기능
+### 📖 배운점? 성과?
+
+- 학원에서 배웠던 ES5가 아닌, ES6 버전을 공부하며, Arrow function 과 async/await 와 같은 비동기 함수 처리와 같은 차이점에 대해 알 수 있었다.
+- FFmpeg 라이브러리를 사용해 직접 녹화 후 영상을 다운로드 받는 기능을 배울 수 있었다.  
+  해당 기능이 기기에 따라 간혹 모바일에서 작동하지 않는 듯 하여 여러 기계로 테스트 후 문제가 발견될 경우 빠르게 개선할 예정입니다.
+- Mongoose 의 schema & model 에 대해 공부하며 백엔드의 구조에 대해 배울 수 있었다. 어렵지만 직접 모델을 설계하고 구조를 잡아가는 과정이 즐거웠다.
+
+---
+
+### ❗가장 어려웠던 것, 해결 까지
+
+- MongoDB Atlas + AWS S3 서버를 사용하는 것은 처음이다보니 어려움이 많았었는데,
+
+      특히 동영상 녹화 및 변환 라이브러리인 FFmpeg 와 AWS S3 의 **CORS**, header 정책이 부딪혀
+
+      정상적인 작동이 안 됬었다. 처음 맞던 CORS 정책 오류로 머리가 하얗게 변하는 듯 했다.
+
+- FFmpeg 는 보안을 위해 출처간 격리된 페이지에서만 사용이 가능하나,
+
+      내 아바타 URL 은 AWS S3 에서 CROS 를 통해 가져와야했따.
+
+- 이에 AWS S3 버킷 정책과 더불어 추가로 초면이였던 CORS 정책에 대해 여러 문서를 참고하고 직접 정리하는 등 문제를 해결하였다.
+
+[📕에러노트\_CORS 오류 해결(2) feat. SharedArrayBuffer](https://velog.io/@tnrud4685/%EC%97%90%EB%9F%AC%EB%85%B8%ED%8A%B8CORS-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B02...feat.-SharedArrayBuffer)
+
+- 아래는 문제가 발생했던 `server.js` 의 부분.
+
+```jsx
+// 기존 코드
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Cross-Origin-Embedder-Policy", "credentialless");
+  next();
+});
+
+// 수정 후 정상 동작
+
+app.use((req, res, next) => {
+  res.header("Cross-Origin-Embedder-Policy", "credentialless");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+});
+```
+
+---
+
+### **🤯  디벨롭 예정**
 
 - 네이버 openAPI 소셜 로그인 기능 구현
 - 동영상 좋아요, 싫어요 기능
 - 해시태그를 통해 영상을 검색하는 기능
-
----
-
-#### 🤗 후기
-
-- 학원에서 배웠던 Javascript 의 ES6 버전을 처음 사용해보았는데, 이전 버전보다 간결해진 코드들과 신기한 기능들을 사용해볼 수 있어서 재밌었다.
-- 직접 동영상 뷰어를 만들고, 녹화하는 기능은 시간 가는 줄 모르고 만들었던 것 같다!!
-- MongoDB Atlas + AWS S3 를 처음에는 이해하기 힘들었지만, 하면 할 수록 재밌었다. AWS 에는 실제 파일이 올라가고, 그 파일의 경로가 Atlas 에 저장되는 것이 참 신기했다.
-- 아쉬웠던 점은, 처음으로 프론트부터 백까지 혼자 했기에 여유가 없어 깊게 파해치지 못했다는 점이다.그러나 Mongo DB 와 Express 는 잊지 못할 것 같다!

@@ -1,15 +1,29 @@
 // video mixin
+
 .video-mixin {
-    .video-mixin__thumb{
-        height: 160px;
-        width: 100%;
-        background-color: ivory;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    div.video-mixin_warp {
+        .video-mixin__thumb {
+                height: 200px;
+                width: 330px;
+                border-radius: 5px;
+                background-color: rgb(45, 45, 45);
+                margin: 0 auto;
+            }
+            .video-mixin__thumb img {
+                object-fit: cover;
+            }
+            .video-mixin__data {
+                margin-top: 12px;
+                display: flex;
+            }
     }
-    .video-mixin__data{
-        margin-top: 15px;
-        display: flex;
-    }
-}
+} 
+
 
 .video-mixin__meta{
     margin-top: 5px;

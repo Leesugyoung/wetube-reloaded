@@ -29,13 +29,16 @@ body {
     font-family:'Roboto', sans-serif;
     background-color: $bg;
     color: white;
+    overflow-x: hidden;
+    min-width: 490px;
 }
 
 main {
-    max-width: 1200px;
+    max-width: 1400px;
     width: 100;
     margin: 0 auto;
     margin-top: 10px;
+    
 }
 
 @keyframes goAway {

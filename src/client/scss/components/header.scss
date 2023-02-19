@@ -35,3 +35,11 @@ header {
         border-radius: 50%;
     }
 }
+
+@media (min-width: 490px) and (max-width: 767px) {
+    li {
+        a {
+            font-size: 11px;
+        }
+    }
+}

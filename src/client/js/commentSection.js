@@ -77,6 +77,11 @@ const handleSubmit = async event => {
 if (form) {
   form.addEventListener("submit", handleSubmit);
 }
+form.addEventListener("keydown", event => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    handleSubmit(event);
+  }
+});
 
 // 코드챌린지(댓글삭제)
 

@@ -34,11 +34,10 @@ body {
 }
 
 main {
-    max-width: 1400px;
-    width: 100;
+    max-width: 1350px;
+    width: 100%;
     margin: 0 auto;
     margin-top: 10px;
-    
 }
 
 @keyframes goAway {
@@ -71,4 +70,14 @@ main {
         color: rgb(176, 1, 1);
         opacity: 70;
     }
+}
+
+@media (min-width: 768px) and (max-width: 1120px) {
+
+    main {
+            max-width: 768px;
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 10px;
+        }
 }

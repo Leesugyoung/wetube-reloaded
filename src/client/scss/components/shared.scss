@@ -8,7 +8,7 @@
     margin-top:50px;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .auth-switch{
@@ -33,15 +33,15 @@
     }
 }
 
-@media (min-width: 767px) and (max-width: 1120px) { // 스마트폰
+@media (min-width: 768px) and (max-width: 1120px) { // 스마트폰
     .video-grid {
-            grid-template-columns: repeat(2,1fr); // 2열로 바뀌도록 적용
-        }
+        grid-template-columns: repeat(2, 1fr); // 2열로 바뀌도록 적용
+    }
 }
 
-@media (min-width: 490px) and (max-width: 767px) {
+@media (min-width: 490px) and (max-width: 768px) {
     .video-grid {
-        grid-template-columns: repeat(1,1fr); // 1열로 바뀌도록 적용
+        grid-template-columns: repeat(1, 1fr); // 1열로 바뀌도록 적용
     }
 }
 

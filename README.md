@@ -64,12 +64,16 @@ JavaScript 로 프론트부터 백까지 모두 다뤄보고 싶어 Youtube 클�
 ### ❗가장 어려웠던 것, 해결 까지
 
 - MongoDB Atlas + AWS S3 서버를 사용하는 것은 처음이다보니 어려움이 많았었는데,  
-  특히 동영상 녹화 및 변환 라이브러리인 FFmpeg 와 AWS S3 의 **CORS**, header 정책이 부딪혀  
-  정상적인 작동이 안 됬었다. 처음 맞던 CORS 정책 오류로 머리가 하얗게 변하는 듯 했다.
+  특히 동영상 녹화 및 변환 라이브러리인 FFmpeg 와 AWS S3 의 Same Origin Policy 정책이 부딪혀  
+  정상적인 작동이 안 됬었다. 처음 맞던 CORS 정책 오류였다.  
 
-- FFmpeg 는 보안을 위해 출처간 격리된 페이지에서만 사용이 가능하나,  
-  내 아바타 URL 은 AWS S3 에서 CROS 를 통해 가져와야했따.
-- 이에 AWS S3 버킷 정책과 더불어 추가로 초면이였던 CORS 정책에 대해 여러 문서를 참고하고 직접 정리해가며 문제를 해결할 수 있었다!
+- FFmpeg 는 보안을 위해 출처간 격리된 페이지에서만 사용이 가능하나,   
+  아바타 URL 은 AWS S3 에서, 그러니까 다른 출처에서 이미지를 가져와야 했다.  
+
+- 이에 CORS 란 무엇인지, 기초를 다시 공부했고  
+  두 가지 정책이 부딪히지 않도록 할 수 있는 CORS 정책에 대해 공부한 결과,  
+  COEP 를 `credentialless` 으로 설정하여 문제를 해결할 수 있었다.
+
 
   [📕에러노트\_CORS 오류 해결(2) feat. SharedArrayBuffer](https://velog.io/@tnrud4685/%EC%97%90%EB%9F%AC%EB%85%B8%ED%8A%B8CORS-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B02...feat.-SharedArrayBuffer)
 

@@ -1,6 +1,4 @@
-# Wetube (Youtube 클론코딩)
-
-JavaScript 로 프론트부터 백까지 모두 다뤄보고 싶어 Youtube 클론코딩 강의를 보며 제작하였습니다 :)
+# Wetube
 
 ---
 
